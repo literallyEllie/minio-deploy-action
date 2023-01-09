@@ -9,4 +9,8 @@ fi
 
 mc alias set ${insecure_option:+"$insecure_option"} deploy "$MINIO_ENDPOINT" "$MINIO_ACCESS_KEY" "$MINIO_SECRET_KEY"
 
-mc cp ${insecure_option:+"$insecure_option"} $1 "deploy/$2"
+if [[ "$MINIO_CP" == "true" ]]; then
+  mc mirror --overwrite ${insecure_option:+"$insecure_option"} $1 "deploy/$2"
+else
+  mc cp ${insecure_option:+"$insecure_option"} $1 "deploy/$2"
+fi
