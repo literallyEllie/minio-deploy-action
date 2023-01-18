@@ -10,6 +10,8 @@ fi
 mc alias set ${insecure_option:+"$insecure_option"} deploy "$MINIO_ENDPOINT" "$MINIO_ACCESS_KEY" "$MINIO_SECRET_KEY"
 
 if [[ "$MINIO_CP" == "true" ]]; then
+  echo copy file $1
+  ls $1
   mc cp ${insecure_option:+"$insecure_option"} $1 "deploy/$2"
 else
   mc mirror --overwrite ${insecure_option:+"$insecure_option"} $1 "deploy/$2"
